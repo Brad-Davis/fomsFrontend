@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>America</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Halyard+Display:wght@400;700&display=swap');
+
+    body {
+      background-color: #161616;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: 'Halyard Display', sans-serif;
+    }
+
+    .container {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        margin: 0 auto;
+        text-align: left;
+        margin-top: 10px;
+    }
+
+    form label {
+        margin: 10px 20px 5px 20px;
+    }
+
+    .formWidth {
+        width: 60vw;
+        max-width: 460px;
+    }
+
+    form input {
+        font-size: 20px;
+        margin: 0 20px 10px 20px;
+        padding: 10px;
+        font-size: 17px;
+    }
+
+    form button {
+        margin: 10px 20px;
+        padding: 10px;
+        background-color: darkred;
+        color: white;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        font-size: 17px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    form button:hover {
+        background-color: rgb(192, 0, 0);
+    }
+
+    @media (max-width: 600px) {
+      .formWidth {
+        width: 90vw;
+      }
+    }
+  </style>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <img class="formWidth" src="./images/ashley.png" alt="America">
+    <form class="formWidth" action="">
+      <label><b style="color:white;">Phone Number</b></label>
+      <input type="text" placeholder="e.g. 555 555 555" name="entry.1256233621">
+      <label style="color: white;"><b>Zip Code</b></label>
+      <input type="text" placeholder="e.g. 01234" name="entry.176173931">
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+  <script>
+    
+  </script>
+</body>
+</html>

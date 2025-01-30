@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Loading</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+    }
+  </style>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js">
+    </script>
+</head>
+<body>
+  
+  <script>
+    $.get("https://ipinfo.io", function(response) {
+
+        //show US only 
+        if (response.country == "US"){
+            window.location.href = '/america.html';
+        } else if (response.country == "CA") {
+            window.location.href = '/canada.html';
+        } else {
+            window.location.href = '/international.html';
+        }
+
+    }, "jsonp");
+  </script>
+</body>
+</html>
