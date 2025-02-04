@@ -3,8 +3,9 @@
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <title>America</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Halyard+Display:wght@400;700&display=swap');
+
 
     body {
       background-color: #b8a794;
@@ -13,9 +14,9 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      margin: 10;
-      margin-top: -50px;
-      font-family: 'Halyard Display', sans-serif;
+      font-family: 'Roboto', sans-serif; /* Update font-family */
+      font-style: italic; /* Make font italic */
+      font-size: 1.5em;
     }
 
     .container {
@@ -31,7 +32,7 @@
         justify-content: flex-start;
         margin-top: -10px !important;
         margin: auto;
-        color: #301c1f !important;
+        color: #301B1F !important;
         text-align: left;
         margin-top: 10px;
     }
@@ -88,9 +89,60 @@
       <input type="text" placeholder="e.g. 01234" name="entry.176173931">
       <button type="submit">Submit</button>
     </form>
+    <br>
+    <div style="text-align:center; margin-bottom: -20px; font-size: 0.8em;"><h1><u>Tour Dates</u></h1></div>
+    <div id="textPopulater" style="text-align:center; font-size: 1.1em;">
+    </div>
   </div>
-  <script>
-    
-  </script>
 
+  <script>
+  //connect to google spread sheet
+  const sheetId = "1VIuSm4GEpDRYzZFN07JkAXCyo3IurepXIL5kq0xhtRg";
+  const sheetName = encodeURIComponent("shows");
+  const sheetURL = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=${sheetName}`;
+
+  fetch(sheetURL)
+    .then((response) => response.text())
+    .then((csvText) => handleResponse(csvText));
+
+  function handleResponse(csvText) {
+    let sheetObjects = csvToObjects(csvText);
+    // sheetObjects is now an Array of Objects
+    for(let i = 0, max = sheetObjects.length; i <= max; i++){
+      var today = new Date();
+      var date = sheetObjects[i].objectDate.split('/');
+      var year = date[0];
+      var month = date[1];
+      var day = date[2];
+      var showDate = new Date(year,month-1,day);
+      console.log(year,month,day);
+      console.log(showDate);
+
+      //determine if this show has already happened
+      if(showDate >= today){
+        document.getElementById("textPopulater").innerHTML+="<p><b><h4>"+sheetObjects[i].city+", "+sheetObjects[i].state+" </b><br><a href='"+sheetObjects[i].link+" ' style=' text-decoration: underline; font-size:.7em !important;' >"+sheetObjects[i].textDate+ "</a> <span style='font-size:.7em'>"+" ("+sheetObjects[i].age+") "+"</button>";
+      }
+    }
+  }
+
+  //Create obejct of the spreadsheet
+  function csvToObjects(csv) {
+    const csvRows = csv.split("\n");
+    const propertyNames = csvSplit(csvRows[0]);
+    let objects = [];
+    for (let i = 1, max = csvRows.length; i < max; i++) {
+      let thisObject = {};
+      let row = csvSplit(csvRows[i]);
+      for (let j = 0, max = row.length; j < max; j++) {
+        thisObject[propertyNames[j]] = row[j];
+      }
+      objects.push(thisObject);
+    }
+    return objects;
+  }
+
+  function csvSplit(row) {
+    return row.split(",").map((val) => val.substring(1, val.length - 1));
+  }
+  </script>
 </body></html>
